@@ -60,8 +60,8 @@ phoneRegex = re.compile(r'''(
 
 emailRegex = re.compile(r'''(
     [a-zA-Z0-9._%+-]+				#username
-    @								#@ symbol
-    [a-zA-Z0-9.-]+					#domain name
+    @						#@ symbol
+    [a-zA-Z0-9.-]+				#domain name
     (\.[a-zA-Z]{2,5})				#tld
     )''', re.VERBOSE)
     
@@ -93,7 +93,7 @@ for groups in ipv4Regex.findall(text):
 #copy results to the clipboard
 if len(matches) > 0:
     pyperclip.copy('\n' .join(matches))
-    print('Copied to clipboard:')
+    print('These are your wonky IoC\'s. Use Mark I Eyeball to and best discretion when using!')
     print(','.join(matches))		
 else:
 	print('No IoC\'s found.')
