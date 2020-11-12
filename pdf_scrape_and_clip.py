@@ -8,7 +8,7 @@ This is a very wonky Python script to extract text from a PDF and scrape for IOC
 
 This does NOT work with scanned pictures converted to PDF (weak pdf). It should work with .doc or .txt files converted to PDF (strong pdf).
 
-Matthew Pahl - 2020
+mjp - 2020
 '''
 
 #TODO: Perhaps incorporate glob to natively find PDFs in a directory?
