@@ -6,6 +6,8 @@ This is a very wonky Python script to extract text from a PDF and scrape for IOC
 3- Extracts International and Domestic Phone Number, Email Address, Domain, IPv4 Address, 
 4- Spits out the results onto the clipboard
 
+DOMAIN.COM REGEX IS A WORK IN PROGRESS!
+
 This does NOT work with scanned pictures converted to PDF (weak pdf). It should work with .doc or .txt files converted to PDF (strong pdf).
 
 mjp - 2020
