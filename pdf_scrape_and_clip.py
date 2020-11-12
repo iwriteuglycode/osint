@@ -95,7 +95,7 @@ for groups in ipv4Regex.findall(text):
 #copy results to the clipboard
 if len(matches) > 0:
     pyperclip.copy('\n' .join(matches))
-    print('These are your wonky IoC\'s. Use Mark I Eyeball to and best discretion when using!')
+    print('These are your wonky IoC\'s. Use Mark I Eyeball and best discretion when using in your investigation!')
     print(','.join(matches))		
 else:
 	print('No IoC\'s found.')
