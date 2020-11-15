@@ -48,7 +48,7 @@ narrow = input("Type 'narrow' for a narrow search using the Natural Language Too
 
 #NTLK Tokenization without checking for English word relevance
 
-if narrow = "narrow":
+if narrow == "narrow":
     print("\nPerforming Narrow Search. This will generate a small set of lengthier stem words using Natural Language Toolkit.")
     ps = PorterStemmer()   
     stems = set()
