@@ -1,0 +1,108 @@
+'''
+11-15-2020
+
+Tool requested by Clay B: "Please write me a script that takes a csv of domains provided by a customer, and then finds the most common stems in all of the domains."
+
+I am using two methodologies to do this. Narrow search will use PorterStemmer from NTLK to pull out a stem from the string. Expanded search simply pulls out all valid stems from within each domain 
+string that is 5 characters or more. 
+
+I then take the stems as a set, make a dictionary of them as keys, and count the occurence of the stems for each domain in the list.
+
+User can select the search type they want (narrow or expanded), as well as the total number of results displayed.
+
+
+'''
+
+
+import csv
+from collections import Counter 
+from nltk.stem import PorterStemmer 
+from nltk.tokenize import word_tokenize
+   
+
+#Import the file, read the lines, add them into a list
+ 
+csvRows = []
+with open('2020_domain_list.csv', newline='') as f:
+    reader = csv.reader(f)
+    for row in reader:
+        csvRows.append(row)
+        
+
+#Remove TLDs
+
+domains = []
+for url in csvRows:
+    for word in url:
+        tld = word.rfind('.')
+        if tld >= 0:
+            word = word[:tld]
+            domains.append(word)
+
+   
+
+#TODO: Find the Stems from words, Put into Dictionary ENGLISH, eliminate stopwords
+
+#figure out if we want a narrow or lengthy search
+narrow = input("Type 'narrow' for a narrow search using the Natural Language Toolkit. This will result in fewer stems. Otherwise default is 'expanded'.\n")
+
+#NTLK Tokenization without checking for English word relevance
+
+if narrow = "narrow":
+    print("\nPerforming Narrow Search. This will generate a small set of lengthier stem words using Natural Language Toolkit.")
+    ps = PorterStemmer()   
+    stems = set()
+    for domain in domains:
+        stems.add(ps.stem(domain))
+    searchType = "Narrow Search"    
+
+#Finds all substrings of the individual strings that are >= 5 characters
+
+else:
+    stems = set()
+    print("\nPerforming Expanded Search, this will generate a large set of all stemwords at least 5 letters in length. Give it some time to process.")
+    for test_str in domains:
+        res = [test_str[i: j] for i in range(len(test_str)) 
+               for j in range(i + 1, len(test_str) + 1)]
+        for word in res:
+            if len(str(word)) >= 5:
+                stems.add(word)
+    searchType = "Expanded Search"            
+            
+#Determine the count of domains, and the count of stems            
+            
+domainCount = str(len(domains))
+stemCount = str(len(stems))
+
+print("\n" + searchType + " produced total of " + domainCount + " unique domains, that were converted into " + stemCount + " unique stems.")
+            
+##Accumulate the count of each stem if it appears in the domain in the list of domains, assign the value to the key
+
+stemDict = {}
+for stem in stems:
+    if stem not in stemDict:
+        stemDict[stem] = 0
+
+ks = list(stemDict.keys())  #casting ks into a list before use will improve performance
+for k in ks:
+    for domain in domains:
+        if k in domain:
+            stemDict[k] += 1
+            
+##Sort the counts based on most numerous
+
+n = input("\nType in the number of results would you like?")
+n = int(n)
+print("\nNow creating a dictionary of the top " + str(n) +" values. Expanded searches will take a while.")
+counts = Counter(stemDict)
+high = counts.most_common(n)
+
+print("\nMost Common Stems:") 
+print("\nKeys : Values")
+
+for i in high: 
+    print(i[0]," :",i[1]," ") 
+
+
+
+##TODO: Display Ratio?
